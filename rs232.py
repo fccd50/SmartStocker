@@ -1,17 +1,10 @@
-import serial.tools.list_ports
 import serial
 
 class RS232C:
     def __init__(self) :
         pass
 
-    def getCOMPorts(self):
-        return [ports.device + " " + ports.description for ports in serial.tools.list_ports.comports()]
-        '''
-        ports = list(serial.tools.list_ports.comports())
-        for p in ports:
-            yield p.device
-        '''
+
     def connect(self, comport):
         try:
             # self.seri.setDTR(False)
