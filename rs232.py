@@ -4,12 +4,11 @@ class RS232C:
     def __init__(self) :
         pass
 
-
-    def connect(self, comport):
+    def connect(self, comport="COM6"):
         try:
             # self.seri.setDTR(False)
             self.seri = serial.Serial(comport,9600) #, dsrdtr=True)
-            self.seri.timeout=30
+            self.seri.timeout=5
             self.seri.set_buffer_size = 25
             return True
         except:
@@ -30,7 +29,7 @@ class RS232C:
         re = ""
         try:
             if self.seri.open :
-                re = self.seri.read_until(b"\n").decode('utf8')
+                re = self.seri.read_until("\xF3")
         except:
             return re
         return re

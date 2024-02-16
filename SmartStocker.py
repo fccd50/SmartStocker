@@ -11,7 +11,7 @@ class SmartStocker:
         tab_group = [[sg.Tab(f"TAB {i}", self.tab_layout(i), key=f"TAB {i}")] for i in range(5)]
         layout = [
             [sg.TabGroup(tab_group, border_width=0, pad=(0, 0), expand_x=True, expand_y=True, key='TABGROUP')],
-            [sg.VPush()],
+            # [sg.VPush()],
             [sg.Button('< PREV'), sg.Push(), sg.Button('Exit'), sg.Push(), sg.Button('NEXT >')],
         ]
         window = sg.Window("Title", layout, finalize=True)

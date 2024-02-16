@@ -1,4 +1,3 @@
-import pysimplegui
 import Pad
 
 class Shelf:
@@ -11,3 +10,6 @@ class Shelf:
   @ID.setter
   def ID(self, id):
     self.__ID = id
+  
+  def _layout(self):
+    pad = Pad.Pad()

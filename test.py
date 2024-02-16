@@ -2,4 +2,6 @@ import communicator
 
 if __name__ == '__main__':
   c = communicator.Communicator()
-  print(c.encoder("T0001"))
+  a=c.getID()
+  # test = "\xF2"
+  # print (bytes(test,'ascii'))
