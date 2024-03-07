@@ -1,8 +1,9 @@
 import Pad
 
 class Shelf:
-  def __init__(self):
+  def __init__(self, info):
     self.__ID = 0
+    self.info = info
 
   @property
   def ID(self):

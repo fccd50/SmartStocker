@@ -1,12 +1,35 @@
 {
-  "Shelf": [
+  "SmartStocker": [
     {
-      "name": "棚団Aの1段目",
-      "ID": 0
+      "SSName": "棚団Aの1段目",
+      "ID": 1,
+      "PADS":[{
+        "PName":"ネジA",
+        "CAPA": 8.0,
+        "APW": 0.11,
+        "THRES":3,
+        "OR":0,
+        "PICPATH":"\\c\\abc\\pic.jpg"},
+        {
+        "PName":"ネジB",
+        "CAPA":8.0,
+        "APW": 0.11,
+        "THRES":3,
+        "OR":0,
+        "PICPATH":"\\c\\abc\\pic.jpg"}
+      ]
     },
     {
-      "name": "Jane",
-      "age": 25
+      "SSName": "棚団Aの2段目",
+      "ID": 2,
+      "PADS":[{
+        "PName":"ネジC",
+        "CAPA":8.0,
+        "APW": 0.11,
+        "THRES":3,
+        "OR":0,
+        "PICPATH":"\\c\\abc\\pic.jpg"}
+      ]
     }
   ]
 }
