@@ -4,7 +4,7 @@ class RS232C:
   def __init__(self) :
     pass
 
-  def connect(self, comport="COM6"):
+  def connect(self, comport="COM8"):
     try:
       # self.seri.setDTR(False)
       self.seri = serial.Serial(comport,9600) #, dsrdtr=True)

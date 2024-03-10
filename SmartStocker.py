@@ -6,10 +6,8 @@ import SmartInfo
 class SmartStocker:
   def __init__(self) -> None:
     # self.com = communicator()
-    self.info = SmartInfo()
-    for info in self.info.get_ShelvsNum():
-      self.shelves = Shelf(info)
-    self.shelves = [self.info.get_Shelves(id) in range(self.info.get_ShelveNum())]
+    self.info = SmartInfo.SmartInfo()
+    self.shelves = [Shelf.Shelf(a_shelf) for a_shelf in self.info.get_Shelvs()]
 
   def tab_layout(self,index):
     layout = [[sg.Text(f'Window {index+1}')]]
@@ -21,7 +19,8 @@ class SmartStocker:
     tab_group = [[sg.Tab(f"TAB {i}", self.tab_layout(i), key=f"TAB {i}")] for i in range(5)]
     layout = [
             [sg.TabGroup(tab_group, border_width=0, pad=(0, 0), expand_x=True, expand_y=True, key='TABGROUP')],
-            # [sg.VPush()],
+            # [sg.Push()],
+            [a.shelf_gui() for a in self.shelves],
             [sg.Button('< PREV'), sg.Push(), sg.Button('Exit'), sg.Push(), sg.Button('NEXT >')],
         ]
     window = sg.Window("Title", layout, finalize=True)
