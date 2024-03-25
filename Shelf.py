@@ -7,7 +7,16 @@ class Shelf:
     self.__ID = a_shelf["ID"]
     self.__SSName = a_shelf["SSName"]
     # print(self.__ID)
-    self.pads = [Pad.Pad(self.__ID, a_pad) for a_pad in self.shelfinfo["PADS"]]
+    self.__pads = [Pad.Pad(self.__ID, a_pad) for a_pad in self.shelfinfo["PADS"]]
+    self.__howmanypads = len(self.__pads)
+
+  @property
+  def pads(self):
+    return self.__pads
+  
+  @property
+  def howmanypads(self):
+    return self.__howmanypads
 
   @property
   def ID(self):

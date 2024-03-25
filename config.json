@@ -9,7 +9,7 @@
         "CAPA": 8.0,
         "APW": 0.11,
         "THRES":3,
-        "OR":0,
+        "OR":"YES",
         "PICPATH":"\\c\\abc\\pic.jpg"}
       ]
     }
@@ -23,7 +23,7 @@
         "CAPA":8.0,
         "APW": 0.13,
         "THRES":3,
-        "OR":0,
+        "OR":"NO",
         "PICPATH":"\\c\\abc\\pic.jpg"}
         ,{
         "PName":"Nut M12 in BB",
@@ -31,7 +31,7 @@
         "CAPA":8.0,
         "APW": 0.17,
         "THRES":3,
-        "OR":0,
+        "OR":"NO",
         "PICPATH":"\\c\\abc\\pic.jpg"}
       ]
     }

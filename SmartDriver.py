@@ -3,13 +3,17 @@ import time
 import SmartInfo
 from threading import Thread
 from queue import Queue
+import Logging
 
 class SmartDriver():
-  def __init__(self,dq:Queue, gq:Queue, info:SmartInfo) -> None:
+  def __init__(self,dq:Queue, gq:Queue, info:SmartInfo, shelves:list) -> None:
     self.from_SS_que = dq
     self.to_SS_que = gq
     self.cm = communicator.Communicator()
     self.info = info
+    self.log = Logging.Logging()
+    self.shelves = shelves
+
   def set_info(self, info:SmartInfo):
     self.info = info
   def startSmartShelf(self, port:str):
@@ -17,28 +21,16 @@ class SmartDriver():
   def endSmartShelf(self):
     self.cm.close_communicator()
 
-  def weight_parser(self,id:int, padnum:int, weightlist:list):
-    # print(weightlist)
-    for pad in range(padnum):
-      if weightlist != [] :
-        w = weightlist[pad].replace(" ","")
-        self.to_SS_que.put([id, pad, w])
-      else:
-        self.to_SS_que.put([id, pad, ""])
-    # print("parser"+str([id, padnum, t]))
-
   def do_measurement(self):
-    i = 0
     while True:
-      i += 1
-      time.sleep(0.2)
-      for a in self.info.get_RepeatList():
-        re = self.cm.get_padsweight_byID_padnum(a[0],a[1])
-        print(re)
-        self.weight_parser(a[0],a[1],re)
-        # for b in range(a[1]):
-        time.sleep(0.01)
-      # print(f"this count is {i}")
+      time.sleep(0.5) #Exactly the same as below commented-out way. but weight value go to each pad object.
+      for shelf in self.shelves:
+        re = self.cm.get_padsweight_byID_howmanypads(shelf.ID,shelf.howmanypads)
+        for i, pad in enumerate(shelf.pads):
+          if re != [] :
+            pad.weight = re[i]
+            print ("dome "+re[i])
+          time.sleep(0.05)
       try:
         if self.from_SS_que.get_nowait():
           print("stop q recieved")
@@ -54,7 +46,7 @@ if __name__ == "__main__":
   i = SmartInfo.SmartInfo()
   sd = SmartDriver(dq, iq, i)
   sd.startSmartShelf("COM8")
-  thred = Thread(target=sd.do_measurement,daemon=True).start()
+  thred = Thread(target=sd.do_measurement,args=(i.get_Shelvs(),),daemon=True).start()
   time.sleep(100)
   sd.to_SS_que.put(True)
   sd.endSmartShelf()

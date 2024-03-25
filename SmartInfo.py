@@ -10,7 +10,6 @@ class SmartInfo:
 
   def get_Len_each(self)->list:
     return [[self.smart_dic["SmartStocker"][i]["ID"]] for i in self.smart_dic["SmartStocker"]["ID"]]
-            # len(self.smart_dic["SmartStocker"][i]["PADS"]) for i in self.smart_dic["SmartStocker"]["ID"]]
 
   def get_PadsLen_ByID(self, ID:int)->int:
     try:
@@ -26,7 +25,7 @@ class SmartInfo:
       l = 0
     return l
   
-  def get_RepeatList(self)->list:# int [[1,2],[2,4]] etc...
+  def get_RepeatList(self)->list:# int ID,padnum [[1,2],[2,4],[5,3]] etc...
     return [[a["ID"]]+[len(a["PADS"])] for a in self.smart_dic["SmartStocker"]]
   
   def get_Shelvs(self):

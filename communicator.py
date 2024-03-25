@@ -49,7 +49,7 @@ class Communicator:
       l = (len(returnBstring)-4)//11 # how many answered pads in 
       return [returnBstring[i*11+5:i*11+5+9].decode() for i in range(l)]
     
-  def get_padsweight_byID_padnum(self, id:int, pads:int)->list:# str list
+  def get_padsweight_byID_howmanypads(self, id:int, pads:int)->list:# str list
     if self.connected:
       command = self.encoder("T"+self.paddingzero(str(id))+str(pads))
       returnBstring = self.serial.send_command_with_return(command)
