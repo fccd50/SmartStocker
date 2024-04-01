@@ -9,13 +9,13 @@
         "CAPA": 8.0,
         "APW": 0.11,
         "THRES":3,
-        "OR":"YES",
-        "PICPATH":"\\c\\abc\\pic.jpg"}
+        "OR":"NO",
+        "PICPATH":"..\\..\\pictures\\bolt A.png"}
       ]
     }
     ,
     {
-      "SSName": "Room B Shelf BB",
+      "SSName": "Room A Shelf B-1",
       "ID": 2,
       "PADS":[{
         "PName":"Bolt M1 in BB",
@@ -23,8 +23,8 @@
         "CAPA":8.0,
         "APW": 0.13,
         "THRES":3,
-        "OR":"NO",
-        "PICPATH":"\\c\\abc\\pic.jpg"}
+        "OR":"YES",
+        "PICPATH":"..\\..\\pictures\\bolt B.png"}
         ,{
         "PName":"Nut M12 in BB",
         "PNum":1,
@@ -32,8 +32,9 @@
         "APW": 0.17,
         "THRES":3,
         "OR":"NO",
-        "PICPATH":"\\c\\abc\\pic.jpg"}
+        "PICPATH":"..\\..\\pictures\\nut.png"}
       ]
     }
+  
   ]
 }

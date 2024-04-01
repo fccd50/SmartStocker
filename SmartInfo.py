@@ -36,8 +36,16 @@ class SmartInfo:
     print(e)
 
   def get_Shelf_names(self)->list:
-    # return self.smart_dic["SmartStocker"][0]["SSName"]
     return [i["SSName"] for i in self.smart_dic["SmartStocker"]]
+  def get_Shelf_IDs(self)->list:
+    return [i["ID"] for i in self.smart_dic["SmartStocker"]]
+  
+  def duplicate_checker(self):
+    names = self.get_Shelf_names()
+    IDs = self.get_Shelf_IDs()
+    return len(names) != len(set(names)) or len(IDs) != len(set(IDs))
+
+
   
 if __name__ == "__main__":
   si = SmartInfo()

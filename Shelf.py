@@ -27,6 +27,10 @@ class Shelf:
     return self.__SSName
   
   def shelf_gui(self)->list:
-    return [[sg.Text("ID:"+str(self.__ID) +":"+ self.__SSName)],[sg.Column(a.pad_gui()) for a in self.pads]]
+    return [sg.Text("ID:"+str(self.__ID) +":"+ self.__SSName)],[sg.Column(a.pad_gui()) for a in self.pads]
     # return [sg.Text("ID:"+str(self.__ID) +":"+ self.__SSName)],[a.pad_gui() for a in self.pads]
 
+  def shelf_gui_overall(self)->list:
+    rclick_menu =["menu",["GoTo:"+self.__SSName]]
+    return [sg.Text("ID:"+str(self.__ID) +":"+ self.__SSName,enable_events=True, key=self.__SSName, right_click_menu=rclick_menu)], [pad.pad_gui_overall() for pad in self.pads]
+    
