@@ -10,7 +10,7 @@
         "APW": 0.11,
         "THRES":3,
         "OR":"NO",
-        "PICPATH":"..\\..\\pictures\\bolt A.png"}
+        "PICPATH":".\\pictures\\bolt A.png"}
       ]
     }
     ,
@@ -24,7 +24,7 @@
         "APW": 0.13,
         "THRES":3,
         "OR":"YES",
-        "PICPATH":"..\\..\\pictures\\bolt B.png"}
+        "PICPATH":".\\pictures\\bolt B.png"}
         ,{
         "PName":"Nut M12 in BB",
         "PNum":1,
@@ -32,7 +32,7 @@
         "APW": 0.17,
         "THRES":3,
         "OR":"NO",
-        "PICPATH":"..\\..\\pictures\\nut.png"}
+        "PICPATH":".\\pictures\\nut.png"}
       ]
     }
   

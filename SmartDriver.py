@@ -1,7 +1,7 @@
 import communicator 
 import time
 import SmartInfo
-from threading import Thread
+# from threading import Thread
 from queue import Queue
 import Logging
 
@@ -20,6 +20,9 @@ class SmartDriver():
     self.cm.open_communicator(port)
   def endSmartShelf(self):
     self.cm.close_communicator()
+  def set_X(self, name:str, email:str, pawd:str)->bool:
+
+    return self.log.twit_login(name, email, pawd)
 
   def do_measurement(self):
     while True:
@@ -29,10 +32,10 @@ class SmartDriver():
         for i, pad in enumerate(shelf.pads):
           if re != [] :
             pad.set_weight(re[i])
-            # print ("dome "+re[i])
+            print ("dome "+re[i])
           time.sleep(0.05)
       try:
-        if self.from_SS_que.get_nowait():
+        if self.from_SS_que.get_nowait() == "STOP":
           print("stop q recieved")
           break
       except:
@@ -40,15 +43,5 @@ class SmartDriver():
   def get_comportlist(self):
     return self.cm.getCOMPorts()
 
-if __name__ == "__main__":
-  dq = Queue()
-  iq = Queue()
-  i = SmartInfo.SmartInfo()
-  sd = SmartDriver(dq, iq, i)
-  sd.startSmartShelf("COM8")
-  thred = Thread(target=sd.do_measurement,args=(i.get_Shelvs(),),daemon=True).start()
-  time.sleep(100)
-  sd.to_SS_que.put(True)
-  sd.endSmartShelf()
 
   

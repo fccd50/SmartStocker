@@ -10,11 +10,11 @@ class Pad:
     self.__thres = self.pad["THRES"]
     self.__or = self.pad["OR"]
     self.__capa = self.pad["CAPA"]
-    self.__picpath = self.pad["PICPATH"] if self.checkpath(pad["PICPATH"]) else "../../pictures/nofile.png"
+    self.__picpath = self.pad["PICPATH"] if self.checkpath(pad["PICPATH"]) else "pictures/nofile.png"
     self.__weight = 0.0 # for GUI, string.
     self.__count = 0
     self.__bar = 0
-    self.notified = False
+    self.in_short_waitfor_reset = False
     self.status = "Not ready"
     self.status_symbols = ['⚪','⚫','★','△']
     self.status_symbols_num = 0
@@ -67,8 +67,13 @@ class Pad:
     if self.__or == "YES":
       return False
     else:
-      self.status_symbols_num = 1
-      return True if self.count < self.__thres else False
+      if self.count < self.__thres:
+        self.status_symbols_num = 1
+        self.in_short_waitfor_reset = True # for twitter
+        return True
+      else:
+        self.status_symbols_num = 0
+        return False
 
   def pad_gui(self):
     # each pad's gui has the object reference as string
