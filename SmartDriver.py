@@ -2,11 +2,11 @@ import communicator
 import time
 import SmartInfo
 # from threading import Thread
-from queue import Queue
+# from queue import Queue
 import Logging
 
 class SmartDriver():
-  def __init__(self,dq:Queue, gq:Queue, info:SmartInfo, shelves:list) -> None:
+  def __init__(self,dq, gq, info:SmartInfo, shelves:list) -> None:
     self.from_SS_que = dq
     self.to_SS_que = gq
     self.cm = communicator.Communicator()
@@ -21,7 +21,6 @@ class SmartDriver():
   def endSmartShelf(self):
     self.cm.close_communicator()
   def set_X(self, name:str, email:str, pawd:str)->bool:
-
     return self.log.twit_login(name, email, pawd)
 
   def do_measurement(self):
@@ -32,7 +31,7 @@ class SmartDriver():
         for i, pad in enumerate(shelf.pads):
           if re != [] :
             pad.set_weight(re[i])
-            print ("dome "+re[i])
+            # print ("dome "+re[i])
           time.sleep(0.05)
       try:
         if self.from_SS_que.get_nowait() == "STOP":

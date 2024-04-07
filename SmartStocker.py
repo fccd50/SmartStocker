@@ -88,12 +88,13 @@ class SmartStocker:
         if self.in_monitor :
           if pad.outofstock() :
             window["-Pcount-"+pid](background_color="red")
-            window["-Pfill-"+pid].update(pad.get_status_symbol())
             window["-Pfill-"+pid](text_color="red")
+            if pad.in_short_waitfor_reset == False:
+              self.sd.send_log("shortage")
           else:
             window["-Pcount-"+pid](background_color="green")
-            window["-Pfill-"+pid].update(pad.get_status_symbol())
             window["-Pfill-"+pid](text_color="white")
+          window["-Pfill-"+pid].update(pad.get_status_symbol())
         window["-Pstatus-"+pid].update("Status:"+pad.status)
         window["-Pbar-"+pid].update(float(pad.weight)/pad.capacity)# later, it should be from pad instance
         pad.set_apw(window["-Papw-"+pid].DisplayText[4:])

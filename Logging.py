@@ -1,8 +1,15 @@
 from twikit import Client
+import datetime
+# import csv
 
 class Logging:
   def __init__(self) -> None:
     self.client = Client("ja")
+    self.t = str(datetime.datetime.now().strftime("%Y%m%d_%H%M%S"))
+    with open(".\\data\\"+self.t+".csv",mode="w") as csv_file:
+      csv_file.write("Date Time,What happened.\r\n")
+    self.write_Log_msg("New Session Started.")
+    self.write_Log_msg("New Session Stazrted.")
 
   def log_error(self, message:str):
     pass
@@ -12,18 +19,17 @@ class Logging:
       self.client.login(
         auth_info_1=name,auth_info_2=email,password=passwd
       )
-      print ("OK")
       return True
     except:
       return False
     
-  def sendmsg(self, msg:str):
+  def write_X_msg(self, msg:str):
+    t = str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     self.client.create_tweet(msg)
-  
 
-if __name__ == "__main__":
-  lo = Logging()
-  lo.twit_login("mettlertoleo", "mettlertoleo@yahoo.co.jp", "ubho1234")
-  lo.sendmsg("Hello test again2")
+  def write_Log_msg(self, msg:str):
+    t = str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+    with open(".\\data\\"+self.t+".csv",mode="a") as csv_file:
+      csv_file.write(t + "," + msg+"\r\n")
 
   

@@ -69,7 +69,7 @@ class Pad:
     else:
       if self.count < self.__thres:
         self.status_symbols_num = 1
-        self.in_short_waitfor_reset = True # for twitter
+        # self.in_short_waitfor_reset = True # for twitter
         return True
       else:
         self.status_symbols_num = 0
