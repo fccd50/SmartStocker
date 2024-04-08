@@ -18,6 +18,14 @@ class Pad:
     self.status = "Not ready"
     self.status_symbols = ['⚪','⚫','★','△']
     self.status_symbols_num = 0
+    self.__keyID = str(self)
+
+  @property
+  def keyID(self):
+    return self.__keyID
+  @property
+  def name(self):
+    return self.__name
 
   def get_status_symbol(self)->str:
     return self.status_symbols[self.status_symbols_num]
@@ -52,10 +60,10 @@ class Pad:
       status = "In Motion"
     elif temp in "C":
       status = "Over     "
-    elif temp in "E":
-      status = "Error    "
-    else:
+    elif temp in "I":
       status = "Invalid  "
+    else:
+      status = "Error    "
     self.status = status
 
   @property
@@ -73,24 +81,25 @@ class Pad:
         return True
       else:
         self.status_symbols_num = 0
+        self.in_short_waitfor_reset = False
         return False
 
   def pad_gui(self):
     # each pad's gui has the object reference as string
-    thisID = str(self)
-    # print("in Pad "+thisID)
+    self.keyID = str(self)
+    # print("in Pad "+self.keyID)
     return [[sg.Image(self.__picpath, size=(180,150) )],
-      [sg.Text(self.__name,key="-Pname-"+thisID)],
-      [sg.Column([[sg.ProgressBar(1, orientation='v', expand_x=False, size=(20, 20),  key='-Pbar-'+thisID)]]),
-      sg.Column([[sg.Text(f"SCL Status:{self.status}",key="-Pstatus-"+thisID)],
-      [sg.Text(f"Capacity:{self.__capa}",key="-Pcapa-"+thisID)],
-      [sg.Text(f"Weight:{self.__weight}", key="-Pweight-"+thisID)],
-      [sg.Text(f"APW:{self.__apw}",key="-Papw-"+thisID,enable_events=True)],
-      [sg.Text(f"Count:{self.__count}",key="-Pcount-"+thisID)],
-      [sg.Text(f"Threshold:{self.__thres}",key="-Pthres-"+thisID,enable_events=True)],
-      [sg.Button("Setup", key=f"-Pzerobutton-"+thisID)]])]
+      [sg.Text(self.__name,key="-Pname-"+self.keyID)],
+      [sg.Column([[sg.ProgressBar(1, orientation='v', expand_x=False, size=(20, 20),  key='-Pbar-'+self.keyID)]]),
+      sg.Column([[sg.Text(f"SCL Status:{self.status}",key="-Pstatus-"+self.keyID)],
+      [sg.Text(f"Capacity:{self.__capa}",key="-Pcapa-"+self.keyID)],
+      [sg.Text(f"Weight:{self.__weight}", key="-Pweight-"+self.keyID)],
+      [sg.Text(f"APW:{self.__apw}",key="-Papw-"+self.keyID,enable_events=True)],
+      [sg.Text(f"Count:{self.__count}",key="-Pcount-"+self.keyID)],
+      [sg.Text(f"Threshold:{self.__thres}",key="-Pthres-"+self.keyID,enable_events=True)],
+      [sg.Button("Setup", key=f"-Pzerobutton-"+self.keyID)]])]
       ]
   def pad_gui_overall(self):
-    thisID = str(self)
-    return sg.Text(self.status_symbols[self.status_symbols_num], key="-Pfill-"+thisID)
+    self.keyID = str(self)
+    return sg.Text(self.status_symbols[self.status_symbols_num], key="-Pfill-"+self.keyID)
     

@@ -90,7 +90,8 @@ class SmartStocker:
             window["-Pcount-"+pid](background_color="red")
             window["-Pfill-"+pid](text_color="red")
             if pad.in_short_waitfor_reset == False:
-              self.sd.send_log("shortage")
+              pad.in_short_waitfor_reset = True
+              self.sd.send_log("Shortage in "+ pad.name +" in " + shelf.SSName)
           else:
             window["-Pcount-"+pid](background_color="green")
             window["-Pfill-"+pid](text_color="white")

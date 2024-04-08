@@ -6,10 +6,9 @@ class Logging:
   def __init__(self) -> None:
     self.client = Client("ja")
     self.t = str(datetime.datetime.now().strftime("%Y%m%d_%H%M%S"))
-    with open(".\\data\\"+self.t+".csv",mode="w") as csv_file:
+    with open(".\\data\\"+self.t+".csv",mode="w", newline=None) as csv_file:
       csv_file.write("Date Time,What happened.\r\n")
     self.write_Log_msg("New Session Started.")
-    self.write_Log_msg("New Session Stazrted.")
 
   def log_error(self, message:str):
     pass
@@ -29,7 +28,7 @@ class Logging:
 
   def write_Log_msg(self, msg:str):
     t = str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-    with open(".\\data\\"+self.t+".csv",mode="a") as csv_file:
+    with open(".\\data\\"+self.t+".csv",mode="a",newline=None) as csv_file:
       csv_file.write(t + "," + msg+"\r\n")
 
   
