@@ -22,7 +22,10 @@ class SmartDriver():
     self.cm.close_communicator()
   def set_X(self, name:str, email:str, pawd:str)->bool:
     return self.log.twit_login(name, email, pawd)
-  def send_log(self, msg:str):
+  def tweet(self, msg:str):
+    self.log.write_X_msg(msg)
+    
+  def file_log(self, msg:str):
     self.log.write_Log_msg(msg)
 
   def do_measurement(self):

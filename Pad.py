@@ -23,6 +23,10 @@ class Pad:
   @property
   def keyID(self):
     return self.__keyID
+  @keyID.setter
+  def keyID(self, id):
+    self.__keyID = id
+  
   @property
   def name(self):
     return self.__name

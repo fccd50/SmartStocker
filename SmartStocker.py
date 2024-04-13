@@ -2,6 +2,7 @@ import PySimpleGUI as sg
 import SmartDriver
 import Shelf
 import SmartInfo
+import datetime
 from queue import Queue
 from threading import Thread
 
@@ -20,8 +21,8 @@ class SmartStocker:
     sg.set_options(font=('Courier New', 20))
     tab_group = [[sg.Tab(shelf.SSName, shelf.shelf_gui(),expand_y=True)] for shelf in self.shelves]
     tab_group2= [[sg.Tab("Serial COM",[[sg.Text("Select COM Port")],[sg.Combo(self.sd.get_comportlist(), key="-comport-", size=(30,10)),sg.Button("COM Start",key="-StartCOM-")],[sg.Text("9600")],[sg.Text("Non Parity")],[sg.Text("Start/Stop 1bit no FLW control")]])], 
-                 [sg.Tab("Twitter X", [[sg.Text("X Twitter Account Info")],[sg.InputText("mettlertoleo",key="-XUserName-"), sg.Text("<- User Name")],[sg.InputText("mettlertoleo@yahoo.co.jp",key="-XEmail-"), sg.Text("<- Your registerd Email or Telnumber")],[sg.InputText("ubho1234",password_char='*',key="-Xpassword-"), sg.Text("<- Password")],[sg.Button("Set",key="-Xset-"),sg.Text("Not Ready", key="-Xready-")]])],
-                 [sg.Tab("Log",[[sg.Multiline(key="-log-", autoscroll_only_at_bottom=True, expand_x=False, expand_y=True)]])]
+                 [sg.Tab("Twitter X", [[sg.Checkbox("Do you want to tweet in X?",key="-Xactive-")],[sg.Text("X Twitter Account Info")],[sg.InputText("mettlertoleo",key="-XUserName-"), sg.Text("<- User Name")],[sg.InputText("mettlertoleo@yahoo.co.jp",key="-XEmail-"), sg.Text("<- Your registerd Email or Telnumber")],[sg.InputText("ubho1234",password_char='*',key="-Xpassword-"), sg.Text("<- Password")],[sg.Button("Set",key="-Xset-"),sg.Text("Not Ready", key="-Xready-")]])],
+                 [sg.Tab("Log",[[sg.Multiline(key="-log-", autoscroll_only_at_bottom=True, expand_x=False, expand_y=True, horizontal_scroll=True)],[sg.Button("Save to a file?", key="-savebutoon-")]])]
                  ]
     # n = 1 if self.info.get_ShelvsLen() < 7 else 3
     # print(self.info.get_ShelvsLen())
@@ -91,7 +92,12 @@ class SmartStocker:
             window["-Pfill-"+pid](text_color="red")
             if pad.in_short_waitfor_reset == False:
               pad.in_short_waitfor_reset = True
-              self.sd.send_log("Shortage in "+ pad.name +" in " + shelf.SSName)
+              txt = window["-log-"].get()
+              msg = "Shortage in "+ pad.name +" in " + shelf.SSName
+              window["-log-"].update(txt+str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S_"+msg)))
+              if window["-Xactive-"].get() and window["-Xready-"].get() =="X is Ready.":
+                self.sd.tweet(msg)
+              
           else:
             window["-Pcount-"+pid](background_color="green")
             window["-Pfill-"+pid](text_color="white")
