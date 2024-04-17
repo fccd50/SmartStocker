@@ -26,9 +26,15 @@ class Logging:
     t = str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
     self.client.create_tweet(msg)
 
-  def write_Log_msg(self, msg:str):
-    t = str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-    with open(".\\data\\"+t+".csv",mode="w",newline=None) as csv_file:
-      csv_file.write(msg)
+  def write_Log_msg(self, path:str, msg:str)->bool:
+    t = str(datetime.datetime.now().strftime("%Y%m%d_%H%M%S"))
+    p = "LOG_"+ path.replace("/","\\")+"\\"+t+".csv"
+    # print(p)
+    try:
+      with open(p,mode="w",newline=None) as csv_file:
+        csv_file.write(msg)
+        return True
+    except:
+      return False
 
   

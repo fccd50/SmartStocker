@@ -81,7 +81,7 @@ class Pad:
     else:
       if self.count < self.__thres:
         self.status_symbols_num = 1
-        # self.in_short_waitfor_reset = True # for twitter
+        # "self.in_short_waitfor_reset = True" is in SmartScoker class 
         return True
       else:
         self.status_symbols_num = 0
@@ -101,7 +101,7 @@ class Pad:
       [sg.Text(f"APW:{self.__apw}",key="-Papw-"+self.keyID,enable_events=True)],
       [sg.Text(f"Count:{self.__count}",key="-Pcount-"+self.keyID)],
       [sg.Text(f"Threshold:{self.__thres}",key="-Pthres-"+self.keyID,enable_events=True)],
-      [sg.Button("Setup", key=f"-Pzerobutton-"+self.keyID)]])]
+      [sg.Button("Zero", key=f"-Pzerobutton-"+self.keyID)]])]
       ]
   def pad_gui_overall(self):
     self.keyID = str(self)

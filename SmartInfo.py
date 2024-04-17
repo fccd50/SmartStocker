@@ -7,6 +7,9 @@ class SmartInfo:
         self.smart_dic = json.load(f)
     except:
       self.bad_jason = True
+  
+  def save_jayson(self):
+    pass
 
   def get_Len_each(self)->list:
     return [[self.smart_dic["SmartStocker"][i]["ID"]] for i in self.smart_dic["SmartStocker"]["ID"]]
@@ -37,6 +40,7 @@ class SmartInfo:
 
   def get_Shelf_names(self)->list:
     return [i["SSName"] for i in self.smart_dic["SmartStocker"]]
+  
   def get_Shelf_IDs(self)->list:
     return [i["ID"] for i in self.smart_dic["SmartStocker"]]
   
