@@ -21,7 +21,7 @@ class SmartStocker:
     sg.set_options(font=('Courier New', 20))
     tab_group = [[sg.Tab(shelf.SSName, shelf.shelf_gui(),expand_y=True)] for shelf in self.shelves]
     tab_group2= [[sg.Tab("Serial COM",[[sg.Text("Select COM Port")],[sg.Combo(self.sd.get_comportlist(), key="-comport-", size=(30,10)),sg.Button("COM Start",key="-StartCOM-")],[sg.Text("9600")],[sg.Text("Non Parity")],[sg.Text("Start/Stop 1bit no FLW control")]])], 
-                 [sg.Tab("Twitter X", [[sg.Checkbox("Do you want to tweet in X?",key="-Xactive-")],[sg.Text("X Twitter Account Info")],[sg.InputText("mettlertoleo",key="-XUserName-"), sg.Text("<- User Name")],[sg.InputText("mettlertoleo@yahoo.co.jp",key="-XEmail-"), sg.Text("<- Your registerd Email or Telnumber")],[sg.InputText("ubho1234",password_char='*',key="-Xpassword-"), sg.Text("<- Password")],[sg.Button("Set",key="-Xset-"),sg.Text("Not Ready", key="-Xready-")]])],
+                 [sg.Tab("Twitter X", [[sg.Checkbox("Do you want to tweet in X?",key="-Xactive-")],[sg.Text("X Twitter Account Info")],[sg.InputText("uname",key="-XUserName-"), sg.Text("<- User Name")],[sg.InputText("xxxx@qqq.com",key="-XEmail-"), sg.Text("<- Your registerd Email or Telnumber")],[sg.InputText("xxxxxx",password_char='*',key="-Xpassword-"), sg.Text("<- Password")],[sg.Button("Set",key="-Xset-"),sg.Text("Not Ready", key="-Xready-")]])],
                  [sg.Tab("Log",[[sg.Multiline(key="-log-", autoscroll_only_at_bottom=True, expand_x=False, expand_y=True, horizontal_scroll=True)],[sg.Button("Save to a file?", key="-savebutton-")]])]
                  ]
     # n = 1 if self.info.get_ShelvsLen() < 7 else 3
