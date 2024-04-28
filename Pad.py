@@ -60,11 +60,11 @@ class Pad:
       self.__weight = float(w.replace(" ",""))
       # print(f"in pad {self.__weight}")
       status = "Weighting" #if firstloop else "Weighting"
-    elif temp in "M":
+    elif "M" in temp:
       status = "In Motion"
-    elif temp in "C":
+    elif "C" in temp:
       status = "Over     "
-    elif temp in "I":
+    elif "I" in temp:
       status = "Invalid  "
     else:
       status = "Error    "
@@ -101,7 +101,7 @@ class Pad:
       [sg.Text(f"APW:{self.__apw}",key="-Papw-"+self.keyID,enable_events=True)],
       [sg.Text(f"Count:{self.__count}",key="-Pcount-"+self.keyID)],
       [sg.Text(f"Threshold:{self.__thres}",key="-Pthres-"+self.keyID,enable_events=True)],
-      [sg.Button("Zero", key=f"-Pzerobutton-"+self.keyID)]])]
+      [sg.Button("Zero", key="-Pzerobutton-"+self.keyID, disabled=True,metadata=f"{self.__ID}:{self.__padNum}")]])]
       ]
   def pad_gui_overall(self):
     self.keyID = str(self)

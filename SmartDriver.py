@@ -17,19 +17,23 @@ class SmartDriver():
 
   def set_info(self, info:SmartInfo):
     self.info = info
+    
   def startSmartShelf(self, port:str)->bool:
-    self.cm.open_communicator(port)
-    return self.cm.connected
+    self.on_com = self.cm.open_communicator(port)
+    return self.on_com
   
   def endSmartShelf(self):
     self.cm.close_communicator()
+
   def set_X(self, name:str, email:str, pawd:str)->bool:
-    self.on_com = self.log.twit_login(name, email, pawd)
-    return self.on_com
+    return self.log.twit_login(name, email, pawd)
   
   def tweet(self, msg:str):
     self.log.write_X_msg(msg)
-    
+  
+  def set_zero(self, id:str, padnum:str)->bool:
+    return self.cm.set_zero(id, padnum)
+
   def file_log(self, path:str, msg:str)->bool:
     return self.log.write_Log_msg(path, msg)
 

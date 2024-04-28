@@ -7,9 +7,11 @@ class Communicator:
   def __init__(self) -> None:
     self.connected = False
 
-  def open_communicator(self, comport:str):
+  def open_communicator(self, comport:str)->bool:
     self.serial = rs232.RS232C()
     self.connected = self.serial.connect(comport)
+    return self.connected
+
   def close_communicator(self):
     self.serial.disconnect()
 
@@ -58,21 +60,10 @@ class Communicator:
       l = (len(returnBstring)-4)//11 # how many answered pads in 
       return [returnBstring[i*10+4:i*10+14].decode() for i in range(l)]
 
-  def test_thread(self):
-    count = 0
-    while True:
-      if count > 100:
-        break
-      print(c.get_padsweight_byID_padnum(1,1))
-      time.sleep(0.01)
-      print(c.get_padsweight_byID_padnum(2,2))
-      time.sleep(0.01)
-      count += 1
-    print("end test")
-    self.close_communicator()
-
-if __name__ == "__main__":
-  c = Communicator()
-  c.open_communicator("COM8")
-  Thread(target=c.test_thread,daemon=True).start()
-  input("stop?")
+  def set_zero(self, id:str, padnum:str)->bool:
+    if self.connected:
+      command = self.encoder("Z"+self.paddingzero(id)+padnum)
+      returnBstring = self.serial.send_command_with_return(command)
+      if "E" in returnBstring[2:5].decode():
+        return False
+      return True

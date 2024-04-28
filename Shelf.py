@@ -3,11 +3,10 @@ import PySimpleGUI as sg
 
 class Shelf:
   def __init__(self, a_shelf):
-    self.shelfinfo = a_shelf
+    self.shelf = a_shelf
     self.__ID = a_shelf["ID"]
     self.__SSName = a_shelf["SSName"]
-    # print(self.__ID)
-    self.__pads = [Pad.Pad(self.__ID, a_pad) for a_pad in self.shelfinfo["PADS"]]
+    self.__pads = [Pad.Pad(self.__ID, a_pad) for a_pad in self.shelf["PADS"]]
     self.__howmanypads = len(self.__pads)
 
   @property

@@ -1,5 +1,5 @@
 import json
-
+# This class is a json handling.
 class SmartInfo:
   def __init__(self) -> None:
     try:
