@@ -99,21 +99,25 @@ class SmartStocker:
             sg.popup_error("Zero failed.", non_blocking=True)
 
   def thread_call(self)-> Thread:
-        tr = Thread(target=self.sd.do_measurement,daemon=True)
-        tr.start()
-        return tr
+    tr = Thread(target=self.sd.do_measurement,daemon=True)
+    tr.start()
+    return tr
     
   def popup_newparameter(self, event, window:sg, message:str, slice:int):
-        text = sg.popup_get_text("New "+message+" ?", keep_on_top=True, modal=False, default_text=f"{window[event].DisplayText}"[slice:])
-        if text != None:
-          temp = text.replace(".","").replace(" ","")
-          try:
-            if temp.isnumeric():
-              float(text) # in case of more than two "."
-              window[event].update(message+text)
-          except:
-            pass
+    text = sg.popup_get_text("New "+message+" ?", keep_on_top=True, modal=False, default_text=f"{window[event].DisplayText}"[slice:])
+    if text != None:
+      temp = text.replace(".","").replace(" ","")
+      try:
+        if temp.isnumeric():
+          float(text) # in case of more than two "."
+          window[event].update(message+text)
+      except:
+        pass
+      
   def save_jayson(self):
+    for shelf in self.shelves:
+      for pad in shelf.pads:
+        pid = str(pad)
     pass
     
   def gui_allupdate(self, window):

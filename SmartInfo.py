@@ -8,7 +8,12 @@ class SmartInfo:
     except:
       self.bad_jason = True
   
-  def save_jayson(self):
+  def update_pad_info(self,shelf_ID:str, pad_ID:str, key:str, upd:str):
+    for i, a_dic in enumerate(self.smart_dic["SmartStocker"]):
+      if a_dic["ID"] == int(shelf_ID):
+        self.smart_dic["SmartStocker"][i]["PADS"][int(pad_ID)][key] = upd
+
+  def save_jason_file(self):
     pass
 
   def get_Len_each(self)->list:

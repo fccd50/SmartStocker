@@ -98,9 +98,9 @@ class Pad:
       sg.Column([[sg.Text(f"SCL Status:{self.status}",key="-Pstatus-"+self.keyID)],
       [sg.Text(f"Capacity:{self.__capa}",key="-Pcapa-"+self.keyID)],
       [sg.Text(f"Weight:{self.__weight}", key="-Pweight-"+self.keyID)],
-      [sg.Text(f"APW:{self.__apw}",key="-Papw-"+self.keyID,enable_events=True)],
+      [sg.Text(f"APW:{self.__apw}",key="-Papw-"+self.keyID,enable_events=True, metadata=f"{self.__ID}:{self.__padNum}")],
       [sg.Text(f"Count:{self.__count}",key="-Pcount-"+self.keyID)],
-      [sg.Text(f"Threshold:{self.__thres}",key="-Pthres-"+self.keyID,enable_events=True)],
+      [sg.Text(f"Threshold:{self.__thres}",key="-Pthres-"+self.keyID,enable_events=True,metadata=f"{self.__ID}:{self.__padNum}")],
       [sg.Button("Zero", key="-Pzerobutton-"+self.keyID, disabled=True,metadata=f"{self.__ID}:{self.__padNum}")]])]
       ]
   def pad_gui_overall(self):
