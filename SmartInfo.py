@@ -8,13 +8,16 @@ class SmartInfo:
     except:
       self.bad_jason = True
   
-  def update_pad_info(self,shelf_ID:str, pad_ID:str, key:str, upd:str):
+  def update_pad_info(self,shelfid:str, pad_num:str, key:str, upd:str):
     for i, a_dic in enumerate(self.smart_dic["SmartStocker"]):
-      if a_dic["ID"] == int(shelf_ID):
-        self.smart_dic["SmartStocker"][i]["PADS"][int(pad_ID)][key] = upd
+      if str(a_dic["ID"]) == shelfid:
+        self.smart_dic["SmartStocker"][i]["PADS"][int(pad_num)][key] = float(upd)
+        print(self.smart_dic)
+        break
 
   def save_jason_file(self):
-    pass
+    with open("config.json", "wt") as f:
+      json.dump(self.smart_dic,f, indent=2, ensure_ascii=False)
 
   def get_Len_each(self)->list:
     return [[self.smart_dic["SmartStocker"][i]["ID"]] for i in self.smart_dic["SmartStocker"]["ID"]]

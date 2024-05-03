@@ -6,7 +6,7 @@ class Shelf:
     self.shelf = a_shelf
     self.__ID = a_shelf["ID"]
     self.__SSName = a_shelf["SSName"]
-    self.__pads = [Pad.Pad(self.__ID, a_pad) for a_pad in self.shelf["PADS"]]
+    self.__pads = [Pad.Pad(index, self.__ID, a_pad) for index, a_pad in enumerate(self.shelf["PADS"])]
     self.__howmanypads = len(self.__pads)
 
   @property

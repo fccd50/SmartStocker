@@ -1,9 +1,10 @@
 import PySimpleGUI as sg
 
 class Pad:
-  def __init__(self, id, pad) :
+  def __init__(self, shelfindex, id, pad) : # shelfindex is used to update json file contents.
     self.pad = pad # it is from json
-    self.__ID = id
+    self.shelfindex = shelfindex
+    self.__ID = id #shelf ID(this pad belongs to which shelf?)
     self.__name = self.pad["PName"]
     self.__padNum = self.pad["PNum"]
     self.__apw = self.pad["APW"]

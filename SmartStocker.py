@@ -12,7 +12,7 @@ class SmartStocker:
     self.from_SD_que = Queue()
     self.info = SmartInfo.SmartInfo()
     self.shelves = [Shelf.Shelf(shelf) for shelf in self.info.get_Shelvs()]
-    self.sd = SmartDriver.SmartDriver(self.to_SD_que, self.from_SD_que, self.info, self.shelves)
+    self.sd = SmartDriver.SmartDriver(self.to_SD_que, self.from_SD_que, self.shelves)
     self.in_weighing = False #"self.sd.on_com" is used as RS232 is on.
     self.in_monitor = False
 
@@ -84,16 +84,19 @@ class SmartStocker:
           self.in_monitor = False
       elif event == "-timeout-":
         self.gui_allupdate(window)
+      elif event == "-jasonsave-":
+        self.info.save_jason_file()
       elif event in ["-Papw-"+str(pad) for shelf in self.shelves for pad in shelf.pads]:
-        self.popup_newparameter(event, window, "APW:", 4)
+        print(window[event].metadata)
+        self.popup_newparameter(event, window, "APW:", 4, key="APW")
       elif event in ["-Pthres-"+str(pad) for shelf in self.shelves for pad in shelf.pads]:
-        self.popup_newparameter(event, window, "Threshold:", 10)
+        self.popup_newparameter(event, window, "Threshold:", 10, "THRES")
       elif event in ["GoTo:"+shelf.SSName for shelf in self.shelves]:
         window[event[5:]].select()
       elif event in ["-Pzerobutton-"+str(pad) for shelf in self.shelves for pad in shelf.pads]:
         if not self.in_weighing:
-          temps = window[event].metadata
-          if self.sd.set_zero(temps.split(":")[0],temps.split(":")[1]):
+          ids = window[event].metadata
+          if self.sd.set_zero(ids.split(":")[0],ids.split(":")[1]):
             sg.popup("Zero OK. Check it after weighing mode", non_blocking=True)
           else:
             sg.popup_error("Zero failed.", non_blocking=True)
@@ -103,14 +106,16 @@ class SmartStocker:
     tr.start()
     return tr
     
-  def popup_newparameter(self, event, window:sg, message:str, slice:int):
-    text = sg.popup_get_text("New "+message+" ?", keep_on_top=True, modal=False, default_text=f"{window[event].DisplayText}"[slice:])
+  def popup_newparameter(self, event, window:sg, premsg:str, slice:int, key:str):
+    text = sg.popup_get_text("New "+premsg+" ?", keep_on_top=True, modal=False, default_text=f"{window[event].DisplayText}"[slice:])
     if text != None:
       temp = text.replace(".","").replace(" ","")
       try:
         if temp.isnumeric():
           float(text) # in case of more than two "."
-          window[event].update(message+text)
+          window[event].update(premsg+text)
+          ids = window[event].metadata
+          self.info.update_pad_info(ids.split(":")[0], ids.split(":")[1], key, text)
       except:
         pass
       

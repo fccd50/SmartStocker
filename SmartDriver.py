@@ -1,22 +1,22 @@
 import communicator 
 import time
-import SmartInfo
+# import SmartInfo
 # from threading import Thread
 # from queue import Queue
 import Logging
 
 class SmartDriver():
-  def __init__(self,dq, gq, info:SmartInfo, shelves:list) -> None:
+  def __init__(self,dq, gq, shelves:list) -> None:
     self.from_SS_que = dq
     self.to_SS_que = gq
     self.cm = communicator.Communicator()
-    self.info = info
+    # self.info = info
     self.log = Logging.Logging()
     self.shelves = shelves
     self.on_com = False
 
-  def set_info(self, info:SmartInfo):
-    self.info = info
+  # def set_info(self, info:SmartInfo):
+  #   self.info = info
     
   def startSmartShelf(self, port:str)->bool:
     self.on_com = self.cm.open_communicator(port)
